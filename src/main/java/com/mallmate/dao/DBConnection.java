@@ -73,6 +73,15 @@ public class DBConnection {
             }
         }
 
+        // Diagnostic logging (hiding actual password)
+        String safeUrl = dbUrl.replaceAll("(?i)(password=)[^&;]*", "$1***")
+                              .replaceAll("(?i)(://[^:]+:)[^@]+@", "$1***@");
+        System.out.println("[DBConnection] Connecting to: " + safeUrl + (dbUser != null ? " (User: " + dbUser + ")" : ""));
+
+        if (dbUrl.contains("db.") && dbUrl.contains(".supabase.co") && !dbUrl.contains("pooler.supabase.com")) {
+            System.err.println("[DBConnection] WARNING: 'db.<ref>.supabase.co' is IPv6-only on Supabase. Render requires the IPv4 Session Pooler host (e.g., aws-0-[region].pooler.supabase.com:6543)!");
+        }
+
         // Load the appropriate JDBC driver
         if (dbUrl.startsWith("jdbc:postgresql:") || dbUrl.contains("postgresql")) {
             Class.forName("org.postgresql.Driver");

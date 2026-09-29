@@ -32,7 +32,12 @@ public class RegisterServlet extends HttpServlet {
             response.sendRedirect("login.jsp?registered=true");
 
         } catch (Exception e) {
-            request.setAttribute("error", "Registration failed: " + e.getMessage());
+            e.printStackTrace();
+            String errorMsg = e.getMessage();
+            if (e.getCause() != null && e.getCause().getMessage() != null) {
+                errorMsg += " (" + e.getCause().getMessage() + ")";
+            }
+            request.setAttribute("error", "Registration failed: " + errorMsg);
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
     }
