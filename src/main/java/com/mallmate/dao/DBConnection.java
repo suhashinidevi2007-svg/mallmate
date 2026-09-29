@@ -8,9 +8,9 @@ public class DBConnection {
 
     // Default local fallback (MySQL)
     private static final String DEFAULT_URL =
-        "jdbc:mysql://localhost:3306/mallmate?useSSL=false&serverTimezone=UTC";
+        "jdbc:mysql://localhost:3306/mallmate?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private static final String DEFAULT_USER = "root";
-    private static final String DEFAULT_PASSWORD = "Root123@Subha";
+    private static final String DEFAULT_PASSWORD = "root";
 
     public static Connection getConnection() throws Exception {
         String dbUrl = System.getenv("DB_URL");
