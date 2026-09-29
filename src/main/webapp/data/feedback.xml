@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE feedbacks SYSTEM "feedback.dtd">
+<feedbacks>
+  <feedback>
+    <name>Demo User</name>
+    <email>demo@mallmate.com</email>
+    <message>Great mall navigation app, very useful!</message>
+    <rating>5</rating>
+  </feedback>
+</feedbacks>
