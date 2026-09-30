@@ -14,8 +14,8 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = request.getParameter("username") != null ? request.getParameter("username").trim() : "";
+        String password = request.getParameter("password") != null ? request.getParameter("password").trim() : "";
 
         String sql = "SELECT * FROM users WHERE username=? AND password=?";
 

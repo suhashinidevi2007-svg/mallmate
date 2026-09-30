@@ -13,10 +13,10 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
+        String username = request.getParameter("username") != null ? request.getParameter("username").trim() : "";
+        String password = request.getParameter("password") != null ? request.getParameter("password").trim() : "";
+        String email = request.getParameter("email") != null ? request.getParameter("email").trim() : "";
+        String phone = request.getParameter("phone") != null ? request.getParameter("phone").trim() : "";
 
         String sql = "INSERT INTO users (username, password, email, phone) VALUES (?,?,?,?)";
 
