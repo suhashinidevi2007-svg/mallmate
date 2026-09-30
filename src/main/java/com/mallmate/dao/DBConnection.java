@@ -66,6 +66,9 @@ public class DBConnection {
             }
         }
 
+        // Fix common typo if sslmode=required was entered instead of sslmode=require
+        dbUrl = dbUrl.replaceAll("(?i)sslmode=required", "sslmode=require");
+
         // Ensure sslmode is required for Supabase cloud PostgreSQL connections
         if (dbUrl.contains("supabase.co") || dbUrl.contains("supabase.com") || dbUrl.contains("pooler.supabase.com")) {
             if (!dbUrl.contains("sslmode=")) {
