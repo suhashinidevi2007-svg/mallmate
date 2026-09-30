@@ -17,6 +17,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.Assert.*;
 
@@ -24,22 +25,32 @@ public class MallMateSeleniumTest {
 
     private WebDriver driver;
 
-    private final String baseUrl =
-            "http://localhost:8080/mallmate/";
+    private String baseUrl = "https://mallmate.onrender.com/";
 
-    private final String screenshotFolder =
-            "screenshots";
-
+    private final String screenshotFolder = "screenshots";
 
     @Before
     public void setUp() {
+        String customUrl = System.getProperty("baseUrl");
+        if (customUrl == null || customUrl.trim().isEmpty()) {
+            customUrl = System.getenv("BASE_URL");
+        }
+        if (customUrl != null && !customUrl.trim().isEmpty()) {
+            if (!customUrl.endsWith("/")) customUrl += "/";
+            baseUrl = customUrl;
+        }
 
-        // Launch Chrome
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        if (Boolean.getBoolean("headless") || "true".equalsIgnoreCase(System.getenv("HEADLESS"))) {
+            options.addArguments("--headless=new");
+        }
 
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
 
-        // Create screenshots folder
         new File(screenshotFolder).mkdirs();
     }
 
